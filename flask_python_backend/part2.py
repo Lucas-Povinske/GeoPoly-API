@@ -50,7 +50,7 @@ data = [
 @app.route('/v2/places', methods=['GET'])
 def getplaces():
     
-    # GET places list from file
+    # GET places list
     if request.method == 'GET':
         return jsonify(data), 200
 

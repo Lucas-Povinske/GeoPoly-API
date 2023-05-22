@@ -13,13 +13,13 @@ def getpostplaces():
     
     # GET places list from file
     if request.method == 'GET':
-        data = json.load(open(os.path.join(sys.path[0], "places2.json"), "r"))
+        data = json.load(open(os.path.join(sys.path[0], "places.json"), "r"))
         return jsonify(data), 200
     
     # POST new place
     if request.method == 'POST':
         new_info = json.loads(request.data)
-        file = open(os.path.join(sys.path[0], "places2.json"), "r")
+        file = open(os.path.join(sys.path[0], "places.json"), "r")
         data = json.load(file)
         try:
             new_place = {
@@ -30,7 +30,7 @@ def getpostplaces():
                         }
             data.append(new_place)
             file.close()
-            json.dump(data, open(os.path.join(sys.path[0], "places2.json"), "w"))
+            json.dump(data, open(os.path.join(sys.path[0], "places.json"), "w"))
             return jsonify(new_place), 200
         except Exception as error:
             print(error)
@@ -41,7 +41,7 @@ def getputuniqueplace(id):
     
     # GET specific place
     if request.method == 'GET':
-        info = json.load(open(os.path.join(sys.path[0], "places2.json"), "r"))
+        info = json.load(open(os.path.join(sys.path[0], "places.json"), "r"))
         for i in info:
             if i.get('id') == int(id):
                 return jsonify(i), 200
@@ -50,7 +50,7 @@ def getputuniqueplace(id):
     # PUT specific place
     if request.method == 'PUT':
         new_info = json.loads(request.data)
-        file = open(os.path.join(sys.path[0], "places2.json"), "r")
+        file = open(os.path.join(sys.path[0], "places.json"), "r")
         info = json.load(file)
         for i in range(len(info)):
             if info[i]['id'] == int(id):
@@ -73,14 +73,14 @@ def getputuniqueplace(id):
 
     # DELETE specific place
     if request.method == 'DELETE':
-        file = open(os.path.join(sys.path[0], "places2.json"), "r")
+        file = open(os.path.join(sys.path[0], "places.json"), "r")
         info = json.load(file)
         for i in range(len(info)):
             if info[i]['id'] == int(id):
                 try:
                     del info[i]
                     file.close()
-                    json.dump(info, open(os.path.join(sys.path[0], "places2.json"), "w"))
+                    json.dump(info, open(os.path.join(sys.path[0], "places.json"), "w"))
                     resp = {
                             "message": "Lugar removido com sucesso!"
                         }
